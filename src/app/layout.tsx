@@ -32,7 +32,7 @@ export default function RootLayout({
                 try {
                   var theme = localStorage.getItem('sh-theme');
                   if (!theme) {
-                    theme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
                   }
                   document.documentElement.setAttribute('data-theme', theme);
                 } catch(e) {}

@@ -358,40 +358,47 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
   z-index: 1;
 }
 
-/* Orbs — irregular, soft, layered */
+/* Orbs — irregular, soft, layered for a premium mesh gradient look */
 .hero-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   pointer-events: none;
   will-change: transform;
   z-index: 0;
+  opacity: 0.8;
+}
+
+[data-theme="light"] .hero-orb {
+  opacity: 0.95;
+  filter: blur(140px);
 }
 
 .hero-orb-1 {
-  width: 450px; height: 450px;
+  width: 600px; height: 600px;
   background: var(--accent-glow);
-  top: -80px; left: 8%;
-  animation: orbDrift 12s ease-in-out infinite alternate;
+  top: -150px; left: -5%;
+  animation: orbDrift 15s ease-in-out infinite alternate;
 }
 
 .hero-orb-2 {
-  width: 350px; height: 350px;
+  width: 500px; height: 500px;
   background: var(--pop-glow);
-  bottom: 15%; right: 5%;
-  animation: orbDrift 10s ease-in-out infinite alternate-reverse;
+  bottom: 0%; right: 0%;
+  animation: orbDrift 12s ease-in-out infinite alternate-reverse;
 }
 
 .hero-orb-3 {
-  width: 280px; height: 280px;
+  width: 400px; height: 400px;
   background: var(--sky-glow);
-  top: 50%; left: 40%;
-  animation: orbDrift 14s ease-in-out infinite alternate;
+  top: 30%; left: 35%;
+  animation: orbDrift 18s ease-in-out infinite alternate;
 }
 
 @keyframes orbDrift {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(30px, -20px) scale(1.12); }
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(40px, -30px) scale(1.1) rotate(5deg); }
+  100% { transform: translate(-20px, 40px) scale(0.95) rotate(-5deg); }
 }
 
 /* Container */
@@ -513,13 +520,14 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
 
 .hero-btn-primary {
   display: inline-flex; align-items: center; gap: 10px;
-  height: 54px; padding: 0 32px;
+  height: 56px; padding: 0 36px;
   background: var(--gradient-brand);
   border-radius: var(--radius-pill);
-  color: white; font-weight: 800; font-size: 0.95rem;
-  box-shadow: var(--shadow-accent);
-  transition: all 0.35s var(--ease);
+  color: white; font-weight: 800; font-size: 1rem;
+  box-shadow: 0 8px 24px var(--accent-glow);
+  transition: all 0.4s var(--ease-spring);
   position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .hero-btn-primary::before {
@@ -625,43 +633,63 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
 /* Floating badge cards */
 .hero-float {
   position: absolute;
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 18px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 22px;
   background: var(--header-bg);
   border: 1px solid var(--border-hover);
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: var(--shadow-md);
+  border-top-color: rgba(255,255,255,0.4);
+  border-left-color: rgba(255,255,255,0.2);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.1);
   z-index: 5;
+  transition: transform 0.4s var(--ease-spring);
+}
+
+[data-theme="light"] .hero-float {
+  background: rgba(255,255,255,0.85);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(255,255,255,0.8);
+}
+
+.hero-float:hover {
+  transform: scale(1.05) translateY(-5px) !important;
 }
 
 .hero-float-top {
-  top: 12%; right: -20px;
-  animation: floatBadge 5s ease-in-out infinite;
+  top: 8%; right: -30px;
+  animation: floatBadge 6s ease-in-out infinite;
 }
 
 .hero-float-bottom {
-  bottom: 12%; left: -20px;
-  animation: floatBadge 5s ease-in-out infinite 2.5s;
+  bottom: 8%; left: -30px;
+  animation: floatBadge 6s ease-in-out infinite 3s;
 }
 
 @keyframes floatBadge {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-12px); }
 }
 
-.hero-float-icon { font-size: 1.3rem; }
+.hero-float-icon {
+  display: grid; place-items: center;
+  width: 42px; height: 42px;
+  background: var(--gradient-brand);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  color: white;
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
 
 .hero-float-label {
   display: block;
-  font-size: 0.68rem; font-weight: 600; color: var(--text-3);
-  text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 0.72rem; font-weight: 700; color: var(--text-3);
+  text-transform: uppercase; letter-spacing: 0.08em;
 }
 
 .hero-float-value {
   display: block;
-  font-size: 0.95rem; font-weight: 800; color: var(--text-1);
+  font-size: 1.1rem; font-weight: 900; color: var(--text-1);
 }
 
 /* Scrolling marquee */
