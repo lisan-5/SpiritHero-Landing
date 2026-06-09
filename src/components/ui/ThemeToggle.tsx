@@ -9,7 +9,7 @@ export function ThemeToggle() {
   useEffect(() => {
     setMounted(true);
     const saved = localStorage.getItem("sh-theme") as "dark" | "light" | null;
-    const preferred = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const preferred = saved || "light";
     setTheme(preferred);
     document.documentElement.setAttribute("data-theme", preferred);
   }, []);
