@@ -175,16 +175,16 @@ button, input, textarea { font: inherit; border: none; outline: none; background
   animation: lineGrow 0.6s var(--ease) 0.2s both;
 }
 
-.section-heading { max-width: 680px; margin-bottom: 50px; }
+.section-heading { max-width: 680px; margin-bottom: 56px; }
 
 h1, h2, h3, p { overflow-wrap: anywhere; }
 
 h2 {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
   color: var(--text-1);
 }
 
@@ -838,58 +838,77 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
 .perk-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  grid-template-rows: auto auto;
+  gap: 16px;
   max-width: var(--max-w);
 }
 
+/* Let featured card span 2 columns for visual interest */
+.perk-grid > :nth-child(1) { grid-column: span 2; }
+.perk-grid > :nth-child(4) { grid-column: span 2; }
+
 .perk-card {
   position: relative;
-  padding: 30px 26px;
-  background: var(--bg-card);
+  padding: 36px 30px;
+  background: var(--bg-raised);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  transition: all 0.4s var(--ease);
+  border-radius: var(--radius-xl);
+  transition: all 0.45s var(--ease);
   overflow: hidden;
 }
 
 .perk-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 2px; background: var(--gradient-brand);
-  opacity: 0; transition: opacity 0.4s;
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--gradient-brand);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--ease);
 }
 
 .perk-card:hover {
-  background: var(--bg-card-hover);
+  background: var(--bg-raised);
   border-color: var(--accent-border);
   transform: translateY(-6px);
-  box-shadow: 0 0 50px var(--accent-glow);
+  box-shadow: var(--shadow-lg);
 }
-.perk-card:hover::before { opacity: 1; }
+.perk-card:hover::before { transform: scaleX(1); }
 
 .perk-card .icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 42px; height: 42px; margin-bottom: 18px;
-  background: var(--accent-bg);
-  border: 1px solid var(--accent-border);
-  border-radius: var(--radius-sm);
-  color: var(--accent-soft); font-weight: 800; font-size: 0.85rem;
+  display: block;
+  margin-bottom: 20px;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.3;
+  transition: opacity 0.4s;
 }
 
-.perk-card h3 { margin-bottom: 8px; }
+.perk-card:hover .icon { opacity: 0.6; }
+
+.perk-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
 
 .perk-card p {
-  color: var(--text-2); font-size: 0.9rem; line-height: 1.7; margin: 0;
+  color: var(--text-2); font-size: 0.92rem; line-height: 1.75; margin: 0;
 }
 
 .accent-card {
-  background: linear-gradient(135deg, rgba(124,107,255,0.12), rgba(0,210,255,0.06));
+  background: var(--accent-bg);
   border-color: var(--accent-border);
 }
 .accent-card .icon {
-  background: var(--gradient-brand); border: none; color: white;
+  opacity: 0.5;
 }
 .accent-card:hover {
-  background: linear-gradient(135deg, rgba(124,107,255,0.18), rgba(0,210,255,0.10));
+  background: var(--accent-bg);
+  border-color: var(--accent);
 }
 
 /* ----------------------------------------------------------
@@ -921,34 +940,40 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
 .steps h2 { margin-bottom: 8px; }
 
 .steps ol {
-  display: grid; gap: 16px; margin: 28px 0 0;
+  display: grid; gap: 0; margin: 28px 0 0;
   padding: 0; list-style: none; counter-reset: step;
 }
 
 .steps li {
   counter-increment: step;
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 18px;
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  color: var(--text-2); font-size: 0.92rem; line-height: 1.7;
-  transition: all 0.3s var(--ease);
+  display: flex; gap: 18px; align-items: flex-start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
 }
-.steps li:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--accent-border);
-  transform: translateX(6px);
-}
+
+.steps li:last-child { border-bottom: none; }
+
 .steps li::before {
   content: counter(step);
-  flex-shrink: 0;
   display: grid; place-items: center;
-  width: 34px; height: 34px;
-  background: var(--gradient-brand);
-  border-radius: var(--radius-sm);
-  color: white; font-weight: 800; font-size: 0.82rem;
+  min-width: 40px; height: 40px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 900;
+  background: var(--accent-bg);
+  border: 2px solid var(--accent-border);
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: all 0.3s var(--ease);
 }
+
+.steps li:hover::before {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: white;
+  transform: scale(1.1);
+}
+
 .steps li strong { color: var(--text-1); }
 
 /* ----------------------------------------------------------
@@ -1031,21 +1056,37 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
 .review-grid { display: grid; gap: 14px; }
 
 .review-card {
-  padding: 26px;
-  background: var(--bg-card);
+  padding: 30px;
+  background: var(--bg-raised);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   transition: all 0.4s var(--ease);
+  position: relative;
 }
+
+.review-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 16px; left: 24px;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
 .review-card:hover {
-  background: var(--bg-card-hover);
   border-color: var(--accent-border);
   transform: translateY(-4px);
-  box-shadow: 0 0 40px var(--accent-glow);
+  box-shadow: var(--shadow-lg);
 }
 .review-card p {
   margin: 0 0 14px; color: var(--text-2);
-  font-size: 0.98rem; line-height: 1.7; font-style: italic;
+  font-size: 1rem; line-height: 1.8;
 }
 .review-card strong { display: block; color: var(--text-1); font-size: 0.92rem; }
 .review-card > span { display: block; margin-top: 4px; color: var(--text-3); font-size: 0.82rem; }
@@ -1063,19 +1104,36 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
 .idea-strip { display: flex; flex-wrap: wrap; gap: 10px; }
 
 .idea-strip span {
-  padding: 11px 20px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  padding: 12px 22px;
+  background: var(--bg-raised);
+  border: 1.5px solid var(--border);
   border-radius: var(--radius-pill);
   color: var(--text-2); font-weight: 700; font-size: 0.88rem;
-  transition: all 0.3s var(--ease);
+  transition: all 0.35s var(--ease);
   cursor: default;
+  position: relative;
+  overflow: hidden;
 }
+
+.idea-strip span::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity 0.35s;
+  z-index: -1;
+}
+
 .idea-strip span:hover {
-  background: var(--accent-bg);
-  border-color: var(--accent-border);
-  color: var(--accent-soft);
-  transform: translateY(-3px);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: var(--shadow-md);
+}
+
+.idea-strip span:hover::before {
+  opacity: 1;
 }
 
 /* ----------------------------------------------------------
@@ -1088,43 +1146,51 @@ h3 { margin: 0 0 8px; font-size: 1.12rem; font-weight: 700; color: var(--text-1)
   overflow: hidden;
 }
 
-.faq-list { display: grid; gap: 10px; max-width: 780px; }
+.faq-list { display: grid; gap: 0; max-width: 780px; }
 
 details {
   padding: 0;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
   overflow: hidden;
   transition: all 0.3s var(--ease);
 }
+details:first-of-type { border-top: 1px solid var(--border); }
 details:hover { border-color: var(--accent-border); }
 details[open] {
-  background: var(--bg-card-hover);
   border-color: var(--accent-border);
-  box-shadow: 0 0 40px var(--accent-glow);
 }
 
 summary {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 22px;
-  cursor: pointer; font-weight: 700; font-size: 0.98rem;
+  padding: 22px 4px;
+  cursor: pointer; font-weight: 700; font-size: 1rem;
   color: var(--text-1); list-style: none;
+  transition: color 0.3s;
 }
+summary:hover { color: var(--accent); }
 summary::-webkit-details-marker { display: none; }
 
 summary::after {
-  content: '+'; font-size: 1.3rem; font-weight: 400;
-  color: var(--accent-soft); flex-shrink: 0; margin-left: 16px;
-  transition: transform 0.3s;
+  content: '+'; font-size: 1.4rem; font-weight: 300;
+  color: var(--accent); flex-shrink: 0; margin-left: 16px;
+  transition: transform 0.3s var(--ease);
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--accent-bg);
 }
 details[open] summary::after {
   content: '−'; transform: rotate(180deg);
+  background: var(--gradient-brand);
+  color: white;
 }
 
 details p {
-  padding: 0 22px 18px; margin: 0;
-  color: var(--text-2); font-size: 0.92rem; line-height: 1.75;
+  padding: 0 4px 22px; margin: 0;
+  color: var(--text-2); font-size: 0.94rem; line-height: 1.8;
 }
 
 /* ----------------------------------------------------------
@@ -1695,7 +1761,11 @@ details p {
   .reviews,
   .contact { grid-template-columns: 1fr; }
   .review-summary { position: static; }
-  .perk-grid { grid-template-columns: repeat(2, 1fr); }
+  .perk-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .perk-grid > :nth-child(1) { grid-column: span 2; }
+  .perk-grid > :nth-child(4) { grid-column: span 2; }
 }
 
 @media (max-width: 760px) {
@@ -1725,6 +1795,9 @@ details p {
 
   .perk-grid,
   .split-band { grid-template-columns: 1fr; }
+
+  .perk-grid > :nth-child(1),
+  .perk-grid > :nth-child(4) { grid-column: span 1; }
 
   .perk-card { min-height: 0; }
 
